@@ -1,0 +1,52 @@
+{
+  "name": "cloudpivot-portal",
+  "version": "6.11.4",
+  "private": true,
+  "description": "云枢portal端项目",
+  "scripts": {
+    "dll": "webpack -p --progress --config ./webpack.dll.conf.js",
+    "serve": "rimraf node_modules/.cache && vue-cli-service serve",
+    "dev": "rimraf node_modules/.cache && cross-env node --max-http-header-size=1024000 --max_old_space_size=8192 node_modules/@vue/cli-service/bin/vue-cli-service.js serve --mode debug",
+    "local": "rimraf node_modules/.cache && cross-env node --max_old_space_size=8192 node_modules/@vue/cli-service/bin/vue-cli-service.js serve --mode local",
+    "build-dev": "vue-cli-service build --mode development",
+    "build-prod": "rimraf node_modules/.cache && vue-cli-service build --max_old_space_size=8192",
+    "build": "npm run build-prod",
+    "lint": "vue-cli-service lint",
+    "analyze": "vue-cli-service build --report",
+    "test": "vue-cli-service test:unit"
+  },
+  "dependencies": {
+    "@ant-design/colors": "^6.0.0",
+    "cloudpivot": "6.11.1000",
+    "cloudpivot-designer": "^6.11.0",
+    "cloudpivot-form-extend": "^6.11.4",
+    "cloudpivot-forms": "^6.11.1",
+    "cloudpivot-icons": "^6.11.0",
+    "cloudpivot-kindeditor": "^6.11.0",
+    "vue-html-to-paper": "1.1.1",
+    "vue-infinite-scroll": "^2.0.2",
+    "webpack-theme-color-replacer": "^1.3.26"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.8.4",
+    "@vue/cli-plugin-babel": "~4.5.15",
+    "@vue/cli-plugin-eslint": "~4.5.15",
+    "@vue/cli-plugin-router": "~4.5.15",
+    "@vue/cli-plugin-typescript": "~4.5.15",
+    "@vue/cli-plugin-vuex": "~4.5.15",
+    "@vue/cli-service": "~4.5.15",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^10.0.33",
+    "babel-plugin-import": "^1.13.3",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "less": "^3.0.4",
+    "less-loader": "^5.0.0",
+    "typescript": "~4.1.5",
+    "vue-template-compiler": "2.6.14"
+  }
+}

@@ -1,0 +1,88 @@
+/*
+禁止修改!此文件是产品代码的一部分，后续可能变更或者不再开放。
+若有问题，请参考前端相关二开文档。
+*/
+
+@import '~@/styles/color/colors.less';
+.add-model-wrap{
+  .set-icon {
+    z-index: 9999;
+    .ant-popover-inner-content {
+      padding: 12px 0 12px 12px;
+    }
+  }
+  .custom-icons {
+    width: 286px;
+    background-color: #fff;
+    max-height: 300px;
+    overflow: auto;
+    em {
+      float: left;
+      cursor: pointer;
+      width: 46px;
+      height: 46px;
+      font-size: 24px;
+      line-height: 46px;
+      text-align: center;
+      border: 1px solid transparent;
+      border-radius: 2px;
+      &:hover,
+      &.active {
+        border: 1px solid @primary-color;
+        color: @primary-color;
+      }
+    }
+    &::after {
+      content: '';
+      clear: both;
+    }
+  }
+
+  
+  &>.ant-row{
+    margin-bottom: 16px;
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
+  .ant-form-item-label {
+    line-height: 22px;
+    height: 22px;
+    margin-bottom: 6px;
+    label {
+      span{
+        font-size: 14px;
+        color: @nav-font-color;
+        position: relative;
+        em{
+          color: red;
+          font-style: normal;
+          margin-left: 2px;
+          position: absolute;
+          top: 50%;
+          line-height: 4px;
+        }
+        i{
+          margin-left: 16px;
+          color: @s-light-font-color;
+          font-size: 12px;
+        }
+        small{
+          font-size: 12px;
+          color: @light-font-color;
+          margin-left: 16px;
+        }
+      }
+    }
+  }
+  .ant-form-item-control-wrapper{
+    display: flex;
+    align-items: center;
+    &>*{
+      flex: 1;
+    }
+  }
+  input {
+    color: #111218;
+  }
+}

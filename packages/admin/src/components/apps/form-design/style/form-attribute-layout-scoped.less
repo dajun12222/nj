@@ -1,0 +1,48 @@
+/*
+禁止修改!此文件是产品代码的一部分，后续可能变更或者不再开放。
+若有问题，请参考前端相关二开文档。
+*/
+.modelHeader {
+  margin: 17px 10px;
+  line-height: 24px;
+}
+.modelCode {
+  word-wrap: break-word;
+  word-break: break-all;
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 500;
+  color: #111218;
+}
+.modelType {
+  float: right;
+  font-size: 12px;
+  padding: 0 10px;
+  background: rgba(206, 245, 220, 0.8);
+  border-radius: 12px;
+}
+.modelTitle {
+  position: relative;
+  margin-left: 20px;
+  font-weight: 400;
+  color: #111218;
+  line-height: 18px;
+}
+.modelTitle::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 0;
+  top: 0;
+  left: -10px;
+  border-left: 4px solid @primary-color;
+}
+.modelAttr {
+  margin-top: 10px;
+}
+.modelCls {
+  margin: 10px 0;
+  &:first-child {
+    margin: -6px 0 10px 0;
+  }
+}

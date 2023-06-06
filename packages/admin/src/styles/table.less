@@ -1,0 +1,167 @@
+/*
+禁止修改!此文件是产品代码的一部分，后续可能变更或者不再开放。
+若有问题，请参考前端相关二开文档。
+*/
+// table列表展示样式--start
+  //---scoped中使用 table-user-list 表格class
+  .ant-table-body::-webkit-scrollbar,
+  .ant-table-header::-webkit-scrollbar {
+    width: 0;
+  }
+  .ant-drawer-body {
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+  }
+  .table-wrap {
+    padding: 2px 0 8px 0;
+    &.search-wrap {
+      margin-top: 12px;
+    }
+  }
+  .table-user-list {
+    min-width: 670px;
+   /deep/ .ant-table-header {
+    overflow-x: hidden;
+    padding-bottom: 20px !important;
+    margin-bottom: -20px !important;
+    .ant-table-thead > tr > th {
+      color: rgba(17, 18, 24, 0.5);
+    }
+  }
+  /deep/ .ant-table-body {
+    color: #111218;
+    // min-height: 43px;
+    // max-height: calc(100vh - 229px + 12px) !important;
+    overflow-x: hidden !important;
+    p {
+      margin-bottom: 0;
+    }
+  }
+    /deep/ .ant-table-thead {
+      border-bottom:solid 1px #eee;
+      // tr:first-child,th:first-child{
+      //   padding-left:20px;
+      // }
+    }
+    /deep/ .ant-table-tbody > tr {
+      // td:first-child{
+      //   padding-left:20px;
+      // }
+    }
+    /deep/ .ant-table-thead > tr > th {
+      padding: 9px 0px;
+      background: #f5f6f9 !important;
+      color: #111218;
+      span {
+        color: #111218;
+      }
+    }
+    /deep/ .ant-table-tbody > tr > td {
+      padding: 9.5px 20px 9.5px 0;
+      & > span {
+        line-height: 23px;
+      }
+      span,a{
+        color: #111218;
+      }
+    }
+    /deep/ .ant-table-thead > tr > th {
+      height: 25px !important;
+      line-height: 25px !important;
+      color: #111218;
+      padding-right:20px;
+      span {
+        color: #111218;
+        line-height: 25px !important;
+        font-weight: 600;
+      }
+
+      .line {
+        display: inline-block;
+        margin-right: 16px;
+        vertical-align: middle;
+        width: 1px;
+        height: 22px;
+      }
+
+      .resize {
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 600;
+        color: #111218;
+      }
+    }
+
+    /deep/ .ant-table-tbody > tr > td {
+      // padding-left: 38px;
+      // padding-right: 5px;
+      border-bottom:solid 1px #eee;
+      color: #111218;
+    }
+    .cursor {
+      cursor: pointer;
+      .name-span {
+        display: inline-block;
+        max-width: 70px;
+        height: 18px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .star {
+        color: #fadb14;
+        margin-left: 8px;
+        font-size: 14px;
+        display: inline-block;
+        vertical-align: text-bottom;
+      }
+      .lock {
+        margin-left: 8px;
+      }
+    }
+    .disable-cursor {
+      cursor: default;
+      color: rgba(17, 18, 24, 0.25);
+    }
+    .highlight {
+      color: @primary-color;
+    }
+    .operation {
+      cursor: pointer;
+        i {
+          font-size: 14px;
+          margin-right: 14px;
+          color:@primary-color !important;
+          font-style: normal !important;
+        }
+        .h-icon-all-caret-down:before{
+            position: absolute;
+            left: 30px;
+            font-size: 12px;
+            top: 2px;
+        }
+        .table-operation {
+          display: inline-block;
+          font-size: 14px;
+          position: relative;
+        }
+        .table-operation:before{
+          transform: scale(0.75);
+        }
+    }
+  }
+ 
+  .scroll-bottom {
+    /deep/ .ant-table-body {
+      max-height: calc(100vh - 261px) !important;
+    }
+  }
+ 
+  //---end
+
+  #admin /deep/.ant-pagination-item-link,/deep/.ant-pagination-next .ant-pagination-item-link,/deep/.ant-pagination-item,/deep/.ant-pagination-options-quick-jumper input{
+    border-radius: 2px;
+  }
+  #admin /deep/.ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link,/deep/ .ant-pagination-disabled a{
+    border-radius: 2px;
+  }

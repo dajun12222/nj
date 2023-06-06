@@ -1,0 +1,101 @@
+.workitem-box {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+     .workitem-box-top,
+     .workitem-box-top-2 {
+      margin: 16px auto 16px;
+      width: 100%;
+      position: relative;
+      min-width: 1000px;
+      max-width: 80%;
+      .filters-box{
+        width: 320px;
+        position: absolute;
+        right: 0;
+        top: 30px;
+      }
+      // transform: translateX(-2px);
+      z-index: 1;
+    }
+    &.my-workflow {
+       .workitem-box-top,
+       .workitem-box-top-2 {
+        .filters-box{
+          top: 78px;
+        }
+      }
+    }
+     .workitem-box-top-2{
+      margin: 16px auto 8px;
+    }
+  
+    .workitem-box-nodata {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .content-data {
+      width: 100%;
+      padding-right: 6px;
+      margin: 0 auto;
+      height: calc(100% - 60px);
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+    .return-top{
+      position: absolute;
+      bottom: 80px;
+      right: 50px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(17, 18, 24, 0.25);
+      text-align: center;
+      line-height: 40px;
+      color: #fff;
+      cursor: pointer;
+      &:hover{
+        background-color: rgba(17, 18, 24, 0.5);
+      }
+    }
+  }
+  
+  /**
+    滚动条内槽  
+  */
+  
+  .content-data::-webkit-scrollbar-thumb {
+    width: 6px;
+    background-color: rgba(17, 18, 24, 0.25);
+    border-radius: 3px;
+  }
+  .content-data::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(17, 18, 24, 0.5);
+  }
+  /**
+   滚动条外层轨道
+  */
+  .content-data::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  .loading-container{
+      position: absolute;
+      top: 50%;
+      left: 47%;
+      z-index: 999;
+      transform: translate(-50%, -50%);
+  }
+
+@media screen and (max-width: 1236px){
+  .workitem-box{
+    .workitem-box-top,
+    .workitem-box-top-2{
+      max-width: unset;
+      min-width: unset;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+config.js
+*.config.js
+**/iconfont.js
+.browserslistrc
+.eslintignore
+.gitignore
+H3BPM Logo.svg
+package.json
+package-lock.json
+tsconfig.json
+**/assets/**
+**/pca/**
+**iconfont.*
+**node_modules

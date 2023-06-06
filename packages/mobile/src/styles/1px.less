@@ -1,0 +1,17 @@
+/*
+禁止修改!此文件是产品代码的一部分，后续可能变更或者不再开放。
+若有问题，请参考前端相关二开文档。
+*/
+//上边框
+.border-top {
+  position: relative;
+  &:before {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: -1px;
+    width: 100%;
+    border-top: 1px solid #eee;
+    content: ' ';
+  }
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="21px" viewBox="0 0 20 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>黄色铃铛@2x</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M1.88888889,5.76 C1.88888889,2.57883984 4.46772873,5.84369641e-16 7.64888889,0 L9.69981156,0 C12.8809717,-5.84369641e-16 15.4598116,2.57883984 15.4598116,5.76 L15.4598116,9.51222637 L16.8764782,12.3458119 L0,12.3458119 L1.88888889,9.51222637 L1.88888889,5.76 Z" id="path-1"></path>
+        <path d="M8.5,7.60978109 C13.1944204,7.60978109 17,5.90627357 17,3.80489055 C17,1.70350752 12.9845438,0 8.29012346,0 C3.59570308,0 0,1.70350752 0,3.80489055 C0,5.90627357 3.80557963,7.60978109 8.5,7.60978109 Z" id="path-3"></path>
+        <radialGradient cx="50%" cy="60.861431%" fx="50%" fy="60.861431%" r="54.0415956%" gradientTransform="translate(0.500000,0.608614),scale(1.000000,0.992874),rotate(78.398295),translate(-0.500000,-0.608614)" id="radialGradient-5">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#E5B9B9" offset="100%"></stop>
+        </radialGradient>
+    </defs>
+    <g id="配色方案" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="工作台首页-绿" transform="translate(-237.000000, -110.000000)">
+            <g id="编组-20" transform="translate(233.000000, 107.000000)">
+                <g id="编组-13" transform="translate(12.500000, 12.500000) rotate(-25.000000) translate(-12.500000, -12.500000) translate(4.000000, 3.000000)">
+                    <path d="M8.5,4.75611318 C9.80400566,4.75611318 10.8611111,3.69142098 10.8611111,2.37805659 C10.8611111,1.0646922 9.80400566,0 8.5,0 C7.19599434,0 6.13888889,1.0646922 6.13888889,2.37805659 C6.13888889,3.69142098 7.19599434,4.75611318 8.5,4.75611318 Z" id="椭圆形" fill="#DF740C"></path>
+                    <g id="椭圆形" transform="translate(0.052469, 2.353604)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <use id="蒙版" fill="#FFA715" xlink:href="#path-1"></use>
+                        <ellipse fill-opacity="0.255022809" fill="#FFFFFF" mask="url(#mask-2)" cx="3.98765432" cy="5.46953016" rx="5.66666667" ry="7.84758675"></ellipse>
+                    </g>
+                    <g id="椭圆形" transform="translate(0.000000, 11.390219)">
+                        <mask id="mask-4" fill="white">
+                            <use xlink:href="#path-3"></use>
+                        </mask>
+                        <use id="蒙版" fill="#DF740C" xlink:href="#path-3"></use>
+                        <ellipse fill="url(#radialGradient-5)" mask="url(#mask-4)" cx="7.34567901" cy="1.42683395" rx="2.83333333" ry="2.85366791"></ellipse>
+                        <ellipse fill="#FFFFFF" mask="url(#mask-4)" cx="6.375" cy="2.61586225" rx="1" ry="1"></ellipse>
+                    </g>
+                    <path d="M8.5,19 C11.3688125,19 13.6944444,18.2547155 13.6944444,17.3353604 C13.6944444,16.4160053 11.3688125,15.6707208 8.5,15.6707208 C5.63118755,15.6707208 3.30555556,16.4160053 3.30555556,17.3353604 C3.30555556,18.2547155 5.63118755,19 8.5,19 Z" id="椭圆形" fill-opacity="0.255022809" fill="#FFFFFF"></path>
+                    <ellipse id="椭圆形" fill="#D13D3C" opacity="0.5" cx="7.58179012" cy="1.64018688" rx="1" ry="1"></ellipse>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

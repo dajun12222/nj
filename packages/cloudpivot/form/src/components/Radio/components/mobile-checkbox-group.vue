@@ -1,0 +1,187 @@
+<template>
+  <h3-radio-list
+    v-if="isRadio"
+    ref="radioList"
+    v-control-back
+    showMode="0"
+    layout="h"
+    showHeaderSearch
+    :value="val"
+    :show="showModal"
+    :options="options"
+    :class="{ radioVertical: layoutType }"
+    :required="ctrl.required"
+    :editable="!(readonlyFormula || readonly)"
+    :title="checkBoxTitle"
+    :labelStyle="styleObj"
+    :cancelText="$t('cloudpivot.form.renderer.cancel')"
+    :confirmText="$t('cloudpivot.form.renderer.ok')"
+    :clearText="$t('cloudpivot.form.renderer.clear')"
+    :placeholder="placeholder"
+    :notFoundText="$t('cloudpivot.form.renderer.noOptions')"
+    :tip="controlOpts.tips"
+    @onShow="show"
+    @onHide="close"
+    @onClear="clear"
+    @onChange="onChange"
+  />
+
+  <h3-checkbox-list
+    v-else
+    ref="checkBoxList"
+    v-control-back
+    showMode="0"
+    layout="h"
+    showHeaderSearch
+    :show="showModal"
+    :value="val"
+    :options="options"
+    :class="{ checkBoxVertical: layoutType }"
+    :required="ctrl.required"
+    :editable="!(readonlyFormula || readonly)"
+    :title="checkBoxTitle"
+    :labelStyle="styleObj"
+    :cancelText="$t('cloudpivot.form.renderer.cancel')"
+    :okText="$t('cloudpivot.form.renderer.ok')"
+    :clearText="$t('cloudpivot.form.renderer.clear')"
+    :placeHolder="placeholder"
+    :notFoundText="$t('cloudpivot.form.renderer.noOptions')"
+    :checkAllText="$t('cloudpivot.form.renderer.checkAll')"
+    @onShow="show"
+    @onHide="close"
+    @onChange="onChange"
+    @input="onChange"
+  />
+
+  <!-- <div class="h3-dropdown">
+    <div class="h3-dropdown-title">{{ label }}</div>
+    <div><input :value="control.options.value"/></div>
+    <span class="h3-dropdown-icon aufontAll h-icon-all-right-o"></span>
+  </div>-->
+</template>
+
+<script lang="ts">
+import { CheckboxGroupControl } from '../../../../../form/src/common/controls/checkbox-group-control';
+import ControlBack from '../../../../../form/src/common/directives/control-back';
+import { H3CheckboxList, H3RadioList } from 'h3-mobile-vue';
+import { Component, Inject, Prop } from 'vue-property-decorator';
+
+@Component({
+  name: 'checkbox-group',
+  components: {
+    H3RadioList,
+    H3CheckboxList,
+  },
+  directives: {
+    ControlBack,
+  },
+})
+export default class CheckboxGroup extends CheckboxGroupControl {
+  showModal: boolean = false;
+
+  tampValue: any = '';
+
+  show() {
+    this.showModal = true;
+    this.tampValue = this.ctrl.value;
+  }
+
+  close() {
+    this.showModal = false;
+    this.ctrl.value = this.tampValue;
+  }
+
+  @Prop({ default: false }) isSheetTable!: boolean;
+
+  @Inject()
+  layoutTypeFn!: Function;
+
+  //上下布局模式
+  get layoutType() {
+    if (this.layoutTypeFn) {
+      return this.layoutTypeFn();
+    }
+  }
+
+  get checkBoxTitle() {
+    if (this.isSheetTable) {
+      return '';
+    } else {
+      return this.label;
+    }
+  }
+
+  clear() {
+    //单选按钮点击请选择、清空按钮后清空值
+    this.tampValue = '';
+    // 移动端pop组件清除时模板值未清空问题
+    try {
+      const radioList: any = this.$refs.radioList;
+      if (radioList && Array.isArray(radioList.$children)) {
+        const popIntance = radioList.$children.find(
+          (item: any) => 'tempValue' in item,
+        );
+        if (
+          Array.isArray(popIntance.tempValue) &&
+          popIntance.tempValue.length > 0
+        ) {
+          popIntance.tempValue = [];
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  onChange(val: any) {
+    if (val) {
+      if (this.isRadio) {
+        this.tampValue = typeof val === 'string' ? val : val.value;
+      } else {
+        this.tampValue = val.slice();
+        this.ctrl.value = val.slice();
+      }
+    } else {
+      this.tampValue = '';
+    }
+  }
+}
+</script>
+
+<style lang="less" scoped>
+.h3-dropdown {
+  align-items: center;
+  display: flex;
+  position: relative;
+  border-bottom: 1px solid #eee;
+  &-title {
+    text-align: left;
+    color: #666;
+  }
+  &-icon {
+    color: #999;
+    position: absolute;
+    font-size: 12px;
+  }
+}
+</style>
+
+<style>
+.radioVertical .h3-field-icon-wrapper {
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  top: 11px;
+  right: 15px;
+  text-align: center;
+  line-height: 22px;
+}
+.checkBoxVertical .h3-field-icon-wrapper {
+  position: absolute !important;
+  line-height: 22px !important;
+}
+.checkBoxVertical .h3-FBH > .h3-FB1,
+.radioVertical .h3-FBH > .h3-FB1 {
+  padding-bottom: 10px !important;
+}
+</style>

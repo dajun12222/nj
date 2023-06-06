@@ -1,0 +1,169 @@
+/*
+禁止修改!此文件是产品代码的一部分，后续可能变更或者不再开放。
+若有问题，请参考前端相关二开文档。
+*/
+@import '~cloudpivot/application/src/components/pc/style/custom-themes';
+@font-face {
+font-family: "aufontAll"; /* Project id 817620 */
+src: url('~cloudpivot-icons/src/iconfont.woff2?t=1639626555144') format('woff2'),
+        url('~cloudpivot-icons/src/iconfont.woff?t=1639626555144') format('woff'),
+        url('~cloudpivot-icons/src/iconfont.ttf?t=1639626555144') format('truetype');
+}
+
+@borderColor: #EDF2F6;
+body{
+    background-color: #F6FAFF;
+    // .workflow-info{
+    //     background: #fff !important;
+    // }
+    .form-d-box{
+        background-color: #fff;
+    }
+}
+
+.select-user {
+    img{
+        width: 20px;
+        height: 20px;
+    }
+    .user-popover-wrapper{
+        margin: 4px 0;
+    }
+    .users-scroll{
+        max-height: 320px;
+        overflow-y: auto;
+    }
+}
+
+// 流程详情
+.workflow-info-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // padding: 0 25px;
+    height: 82px;
+    width: 100%;
+    .left{
+        width: calc(100% - 70px);
+        display: flex;
+        align-items: center;
+        .left-content{
+            display: flex;
+            flex: 1;
+            .item{
+                flex: 1;
+                min-width: 28%;
+                &.participants{
+                    min-width: 44%;
+                }
+                &:nth-child(1){
+                    min-width: 162px;
+                    max-width: 162px;
+                }
+            }
+        }
+    }
+    .workflow-status{
+        display: flex;
+        align-items: center;
+        i{
+            margin-right: 4px;
+        }
+    }
+    .item{
+        .label{
+            height: 20px;
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(17, 18, 24, 0.5);
+            line-height: 20px;
+            margin-bottom: 8px;
+        }
+        .wrapper{
+            height: 22px;
+            font-size: 14px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: #111218;
+            line-height: 22px;
+            // max-width: 209px;
+            span.count{
+                font-size: 10px;
+                color: #2970FF;
+                display: inline-block;
+                min-width: 28px;
+                height: 28px;
+                text-align: center;
+                line-height: 20px;
+                padding: 4px;
+                background: #EDF2F6;
+                border-radius: 14px;
+            }
+        }
+    }
+    .linkTrack{
+        // align-self: flex-end;
+        justify-self: end;
+    }
+    .avatar{
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+
+    }
+    .user-name{
+        font-size: 14px;
+        margin-right: 12px;
+    }
+}
+
+
+.ant-modal-close-x{
+    svg{
+        display: none;
+    }
+    height: 54px;
+    width: 54px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover{
+        i{
+            color: @highlightColor
+        }
+    }
+    i{
+        width: 16px;
+        height: 16px;
+        font-family: "aufontAll" !important;
+        font-size: 16px;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: rgba(17, 18, 24, 0.5);
+        display: flex;
+        align-items: center;
+        font-weight: 400;
+        &::after{
+            content: "\e996";
+            font-size: 16px;
+        }
+    }
+
+}
+.ant-modal-header {
+    border-bottom: none;
+    .ant-modal-title{
+        font-weight: 700;
+        color: #111218;
+        font-size: 16px;
+    }
+}
+.ant-modal-footer{
+    border-top: none;
+    padding: 0 24px 24px;
+}
+.ant-modal-body{
+    padding-top: 8px;
+}

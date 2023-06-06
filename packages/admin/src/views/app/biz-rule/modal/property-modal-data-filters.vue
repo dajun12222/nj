@@ -1,0 +1,740 @@
+<!--
+禁止修改!此文件是产品代码的一部分，后续可能变更或者不再开放。
+若有问题，请参考前端相关二开文档。
+-->
+<template>
+  <div class="div-height">
+    <div class="input-modal" @click="modalShow">
+      <div v-if="inputValue === '已设置'" class="txt-delete">
+        <div class="txt">{{ inputValue }}</div>
+        <em
+          class="icon aufontAll h-icon-all-delete-o1"
+          @click.stop="deleteAll"
+        ></em>
+      </div>
+      <!-- <a-icon type="ellipsis" /> -->
+      <em class="icon aufontAll h-icon-all-setting-o"></em>
+    </div>
+    <a-modal
+      wrapClassName="property-data-filter"
+      :visible="visible"
+      okText="保存"
+      cancelText="取消"
+      :width="640"
+      @ok="handleOk"
+      @cancel="modalHide"
+    >
+      <template slot="title">
+        <div>
+          数据条件
+          <span class="title-tips">满足条件的数据才触发执行动作</span>
+        </div>
+      </template>
+
+      <div class="content">
+        <a-select
+          v-model="dataConditionJoinType"
+          showSearch
+          style="width: 292px"
+          defaultValue="1"
+        >
+          <a-select-option key="ALL"> 请选择 </a-select-option>
+          <a-select-option key="AND"> 满足所有条件的数据 </a-select-option>
+          <a-select-option key="OR"> 满足任一条件的数据 </a-select-option>
+        </a-select>
+
+        <div v-if="dataConditionJoinType !== 'ALL'">
+          <div v-show="filtersList.length > 0" class="filters">
+            <a-row>
+              <a-col :span="8"> 数据字段 </a-col>
+              <a-col :span="6"> 过滤条件 </a-col>
+              <a-col :span="8"> 值 </a-col>
+              <a-col :span="2" />
+            </a-row>
+            <a-row
+              v-for="(row, index) in filtersList"
+              :key="index"
+              class="condition-row"
+            >
+              <a-col :span="8">
+                <data-item-select
+                  v-model="row.currentSchemaDataItem"
+                  :onlyPublished="true"
+                  :list="fieldList"
+                  :systemFilterCtl="{
+                    code: [
+                      'workflowInstanceId',
+                      'modifier',
+                      'ownerDeptQueryCode',
+                      'sortKey',
+                      'id',
+                      'parentId',
+                    ],
+                  }"
+                  :bizFilterCtl="{ type: [10, 8, 6, 7, 11] }"
+                  :disabled="false"
+                  style="width: 100%"
+                  @change="
+                    (val) => {
+                      dataItemChange(val, index);
+                    }
+                  "
+                />
+              </a-col>
+
+              <a-col :span="6">
+                <a-select
+                  v-model="row.ruleDataConditionType"
+                  showSearch
+                  class="data-filter"
+                  placeholder="请选择"
+                  style="width: 100%"
+                  @change="operatorChange(row.ruleDataConditionType, index)"
+                >
+                  <a-select-option
+                    v-for="(type, idx) in row.conditionTypeList"
+                    :key="idx"
+                    :value="type.code"
+                  >
+                    {{ type.name }}
+                  </a-select-option>
+                </a-select>
+              </a-col>
+              <a-col :span="8">
+                <template>
+                  <div class="item-box">
+                    <div v-if="row.type === 1 && row.visible">
+                      <a-input v-model="row.value" placeholder="请输入" />
+                    </div>
+                    <!-- 日期 需要校验 -->
+                    <div v-if="row.type === 2 && row.visible">
+                      <a-date-picker
+                        placeholder="请选择时间"
+                        locale="{locale}"
+                        format="YYYY-MM-DD HH:mm:ss"
+                        :showTime="{
+                          defaultValue: moment(row.value, 'HH:mm:ss', index),
+                        }"
+                        :defaultValue="
+                          moment(row.value, 'YYYY-MM-DD HH:mm:ss', index)
+                        "
+                        @change="dateChange($event, index)"
+                      />
+                    </div>
+
+                    <div v-if="row.type === 3 && row.visible">
+                      <a-input
+                        v-model="row.value"
+                        type="number"
+                        placeholder="请输入"
+                      />
+                    </div>
+
+                    <div v-if="row.type === 4">
+                      <div></div>
+                    </div>
+
+                    <div v-if="row.type === 5 && row.visible">
+                      <a-select
+                        v-model="row.value"
+                        showSearch
+                        :getPopupContainer="getPopupContainer"
+                      >
+                        <a-select-option value="true"> true </a-select-option>
+                        <a-select-option value="false"> false </a-select-option>
+                      </a-select>
+                    </div>
+
+                    <div
+                      v-if="
+                        row.type === 6 &&
+                        row.code !== 'sequenceStatus' &&
+                        row.visible
+                      "
+                    >
+                      <staff-selector
+                        v-model="row.value"
+                        :onlyForm="true"
+                        :options="getStaffSelectorOpts(row)"
+                      />
+                    </div>
+
+                    <div
+                      v-if="
+                        row.type === 6 &&
+                        row.code === 'sequenceStatus' &&
+                        row.visible
+                      "
+                    >
+                      <a-select
+                        v-model="row.value"
+                        showSearch
+                        :getPopupContainer="getPopupContainer"
+                      >
+                        <a-select-option value="PROCESSING">
+                          进行中
+                        </a-select-option>
+                        <a-select-option value="COMPLETED">
+                          已完成
+                        </a-select-option>
+                        <!-- <a-select-option value="CANCELLED">已作废</a-select-option> -->
+                      </a-select>
+                    </div>
+                    <!-- 时间 需要校验 -->
+                    <div v-if="row.type === 12 && row.visible">
+                      <a-time-picker
+                        placeholder="请选择时间"
+                        locale="{locale}"
+                        format="HH:mm:ss"
+                        :defaultValue="moment(row.value, 'HH:mm:ss', index, 1)"
+                        @change="timeChange($event, index)"
+                      />
+                    </div>
+                  </div>
+                </template>
+              </a-col>
+              <a-col :span="2" style="text-align: right; padding-top: 4px">
+                <i
+                  class="icon aufontAll h-icon-all-delete1 delete"
+                  @click="delRows(index)"
+                ></i>
+              </a-col>
+            </a-row>
+          </div>
+          <div class="add">
+            <span style="cursor: pointer" @click="addRows">
+              <span>
+                <i class="icon aufontAll h-icon-all-plus-o"></i>
+              </span>
+              <span>新增条件</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </a-modal>
+  </div>
+</template>
+
+<script lang="ts">
+import appsApi from '@/apis/apps';
+import { DataItemType } from 'cloudpivot/form/schema';
+import StaffSelector from 'cloudpivot/form/src/common/components/form-staff-selector/pc/staff-selector.vue';
+import { dateFormatter } from 'cloudpivot/form/src/renderer/utils/date-formatter';
+import { PropertyComponent } from 'cloudpivot-designer/designer-core/property-panel';
+import * as forms from 'cloudpivot-forms';
+import moment from 'moment';
+import { Component, Inject, Mixins, Watch } from 'vue-property-decorator';
+import DataItemSelect from '../../data-rule/data-item-select.vue';
+import {
+  BizRuleDataCondition,
+  Eexpr,
+} from '../typings/rule-data-condition-type';
+import {
+  Icon,
+  Modal,
+  Row,
+  Col,
+  Select,
+  Input,
+  TimePicker,
+  DatePicker,
+} from '@h3/antd-vue';
+
+const BizRule = new BizRuleDataCondition();
+
+@Component({
+  name: 'propertyDataFilter',
+  components: {
+    StaffSelector,
+    DataItemSelect,
+    AIcon: Icon,
+    AModal: Modal,
+    ARow: Row,
+    ACol: Col,
+    ASelect: Select,
+    ASelectOption: Select.Option,
+    ASelectOptGroup: Select.OptGroup,
+    AInput: Input,
+    ATimePicker: TimePicker,
+    ADatePicker: DatePicker,
+  },
+})
+export default class propertyDataFilter extends Mixins(PropertyComponent) {
+  @Inject()
+  getController!: () => forms.FormGroup;
+
+  get controller() {
+    return this.getController();
+  }
+
+  visible: boolean = false;
+
+  valueFileds: string = '';
+
+  dataConditionJoinType: string = 'ALL';
+
+  // 数据条件
+  filtersList: any[] = [];
+
+  // 数据字段数据源
+  fieldList: any[] = [];
+
+  isShowAlert: boolean = true;
+
+  inputValue: string = ''; // input框 内容
+
+  moment(val: string, f: string, index: number, isTime = 0) {
+    if (!val) {
+      const d = new Date();
+      if (isTime) {
+        this.filtersList[index].value = moment(d).format('HH:mm:ss');
+      } else {
+        this.filtersList[index].value = dateFormatter(d, 'YYYY-MM-DD HH:mm:ss');
+      }
+      return moment(d, f);
+    }
+    return moment(val, f);
+  }
+
+  // 选人控件初始化参数
+  staffSelectorOpts: any = {
+    selectOrg: true,
+    selectUser: true,
+    mulpitle: false,
+    showModel: true,
+    showSelect: true,
+    placeholder: '请选择',
+  };
+
+  addUsers(val: any) {
+    // this.users = val;
+  }
+
+  selectChange() {}
+
+  getStaffSelectorOpts(row) {
+    const obj = {
+      selectOrg: true,
+      selectUser: true,
+      mulpitle: true,
+      showModel: true,
+      showSelect: true,
+      placeholder: '请选择',
+    };
+    // switch (row.propertyType) {
+    //   case DataItemType.StaffSingle:
+    //     obj.selectOrg = false;
+    //     obj.selectUser = true;
+    //     obj.mulpitle = false;
+    //     break;
+    //   case DataItemType.StaffMulti:
+    //     obj.selectOrg = false;
+    //     obj.selectUser = true;
+    //     obj.mulpitle = true;
+    //     break;
+    //   case DataItemType.DeptSingle:
+    //     obj.selectOrg = true;
+    //     obj.selectUser = false;
+    //     obj.mulpitle = false;
+    //     break;
+    //   case DataItemType.DeptMulti:
+    //     obj.selectOrg = true;
+    //     obj.selectUser = false;
+    //     obj.mulpitle = true;
+    //     break;
+    // }
+    return obj;
+  }
+
+  // 获取绑定数据项
+  async getDataItems(schemaCode: string, childCode?: string) {
+    this.fieldList = [];
+    const res = await appsApi.getDataItemList({ schemaCode: schemaCode });
+    if (res && res.errcode === 0) {
+      res.data.map((d: any) => {
+        d.code !== childCode &&
+          d.propertyType !== DataItemType.RelevanceForm &&
+          d.propertyType !== DataItemType.RelevanceFormEx &&
+          this.fieldList.push(d);
+      });
+
+      // 需要添加子表字段
+      if (childCode) {
+        const childData = res.data.find((d: any) => d.code === childCode);
+        if (
+          childData &&
+          childData.subSchema &&
+          childData.subSchema.properties
+        ) {
+          // this.fieldList.push(...childData.subSchema.properties);
+          childData.subSchema.properties.map((p: any) => {
+            if (
+              p.code !== 'sortKey' &&
+              p.code !== 'parentId' &&
+              p.code !== 'id' &&
+              p.propertyType !== DataItemType.RelevanceForm &&
+              p.propertyType !== DataItemType.RelevanceFormEx
+            ) {
+              p.code = `${childCode}.${p.code}`;
+              this.fieldList.push(p);
+            }
+          });
+        }
+      }
+      this.dataItemIsExist();
+    } else {
+      this.$message.error(res.errmsg as string);
+    }
+  }
+
+  dateChange(date: any, i) {
+    this.filtersList[i].value = dateFormatter(date._d, 'YYYY-MM-DD HH:mm:ss');
+  }
+
+  // 确定
+  handleOk() {
+    // 如果选择是所有数据则保存空数组值
+    if (this.dataConditionJoinType === 'ALL') {
+      this.filtersList = [];
+    }
+    this.value = {
+      dataConditionJoinType: this.dataConditionJoinType,
+      conditions: this.filtersList,
+    };
+    // 页面非空判断
+    if (this.dataConditionJoinType !== 'ALL') {
+      let errorMsg: string = '';
+      if (this.filtersList.length > 0) {
+        this.filtersList.forEach((d: any) => {
+          if (
+            d.currentSchemaDataItem === '' ||
+            d.ruleDataConditionType === ''
+          ) {
+            errorMsg = '数据条件不成立';
+          }
+          if (
+            d.currentSchemaDataItem !== '' &&
+            d.ruleDataConditionType !== 'EP' &&
+            d.ruleDataConditionType !== 'NEP' &&
+            (d.value === '' || d.value.length === 0)
+          ) {
+            errorMsg = '数据条件不成立';
+          }
+        });
+      }
+
+      if (errorMsg !== '') {
+        this.$message.error(errorMsg);
+        return false;
+      }
+    }
+    if (this.filtersList.length > 0) {
+      this.inputValue = '已设置';
+    } else {
+      this.inputValue = '未设置';
+    }
+
+    this.emitChange(this.value);
+    this.modalHide();
+  }
+
+  modalShow(): void {
+    this.visible = true;
+    this.initModal();
+  }
+
+  modalHide(): void {
+    this.visible = false;
+  }
+
+  initModal() {
+    this.filtersList = [];
+    this.dataConditionJoinType = 'ALL';
+
+    // 编辑
+    if (
+      this.controller.children.dataCondition &&
+      this.controller.children.dataCondition.value
+    ) {
+      const editData = this.controller.children.dataCondition.value;
+      this.dataConditionJoinType = editData.dataConditionJoinType
+        ? editData.dataConditionJoinType
+        : this.dataConditionJoinType;
+      this.filtersList = editData.conditions
+        ? editData.conditions
+        : this.filtersList;
+    }
+
+    const val = this.controller.children.triggerObjectCode;
+    if (val && val.value) {
+      // 判断是否存在主表
+      const vals = val.value.split('.');
+      if (vals.length > 1) {
+        this.getDataItems(vals[0], vals[1]);
+      } else {
+        this.getDataItems(val.value);
+      }
+    }
+  }
+
+  // 当数据项被删除后要删除
+  dataItemIsExist() {
+    this.filtersList.forEach((item: any, index: number) => {
+      const dataItem = this.fieldList.find(
+        (field: any) => field.code === item.currentSchemaDataItem,
+      );
+      if (!dataItem) {
+        this.filtersList.splice(index, 1);
+      }
+    });
+
+    this.filtersList.forEach((item: any, index: number) => {
+      const dataItem = this.fieldList.find(
+        (field: any) => field.code === item.currentSchemaDataItem,
+      );
+      this.setValueCtrl(dataItem, index);
+    });
+  }
+
+  // 添加行
+  addRows(): void {
+    // newRow Data
+    const newRow = {
+      currentSchemaDataItem: '',
+      type: 0,
+      ruleDataConditionType: '',
+      value: '',
+      conditionTypeList: '',
+      visible: true,
+      code: '',
+      propertyType: 0,
+    };
+    this.filtersList.push(...[newRow]);
+  }
+
+  // 删除行
+  delRows(index) {
+    this.filtersList.splice(index, 1);
+  }
+
+  // 数据项改变
+  dataItemChange(val: any, index) {
+    this.filtersList[index].value = '';
+    //this.filtersList[index].value instanceof Array ? this.filtersList[index].value = [] : this.filtersList[index].value = '';
+    const currentItem: any = this.fieldList.find(
+      (item: any) => item.code === val,
+    );
+    //
+    this.setValueCtrl(currentItem, index, true);
+  }
+
+  // 操作符改变
+  operatorChange(val: any, index) {
+    const isVisible = BizRule.codeOf(val);
+    if (isVisible !== undefined) {
+      isVisible.id === Eexpr.EP || isVisible.id === Eexpr.NEP
+        ? (this.filtersList[index].visible = false)
+        : (this.filtersList[index].visible = true);
+    }
+  }
+
+  // 根据选择的数据项触发对应的值控件
+  setValueCtrl(item: any, index: number, type: boolean = false) {
+    const currentRowData = this.filtersList[index];
+    currentRowData.conditionTypeList = [];
+    currentRowData.code = item.code;
+    currentRowData.propertyType = item.propertyType;
+    currentRowData.conditionTypeList = this.tiggerFilterOf(
+      item.propertyType,
+      item.code,
+    );
+    if (
+      item.propertyType === DataItemType.StaffSingle ||
+      item.propertyType === DataItemType.StaffMulti ||
+      item.propertyType === DataItemType.DeptSingle ||
+      item.propertyType === DataItemType.DeptMulti ||
+      item.propertyType === DataItemType.StaffDeptMix
+    ) {
+      currentRowData.conditionTypeList.reverse();
+    }
+
+    // 当数据项改变时选中默认操作符
+    type &&
+      (currentRowData.ruleDataConditionType =
+        currentRowData.conditionTypeList[0].code);
+    // 根据Item值生成对应的控件
+    currentRowData.type = BizRule.showControls(item);
+
+    this.operatorChange(currentRowData.ruleDataConditionType, index);
+    // // 数据项改变时重置控件值
+    // this.filtersList[index].value = "";
+  }
+
+  /**
+   * 目标数据项 不同类型对应的 可以选择的 操作符
+   */
+  tiggerFilterOf(type: number, code: string) {
+    let exprArray: number[] = [];
+    switch (type) {
+      case DataItemType.ShortText:
+      case DataItemType.Radio:
+      case DataItemType.Checkbox:
+      case DataItemType.Dropdown:
+      case DataItemType.DropdownMulti:
+      case DataItemType.LongText:
+        exprArray = [Eexpr.EQ, Eexpr.NEQ];
+        if (code !== 'sequenceStatus') {
+          if (code === 'name' || code === 'sequenceNo') {
+            exprArray.push(...[Eexpr.CT, Eexpr.NCT]);
+          } else {
+            exprArray.push(...[Eexpr.CT, Eexpr.NCT, Eexpr.EP, Eexpr.NEP]);
+          }
+        }
+        break;
+      case DataItemType.Number:
+        exprArray = [
+          Eexpr.EQ,
+          Eexpr.NEQ,
+          Eexpr.GT,
+          Eexpr.GTEQ,
+          Eexpr.LT,
+          Eexpr.LTEQ,
+          Eexpr.EP,
+          Eexpr.NEP,
+        ];
+        break;
+      case DataItemType.Date:
+        exprArray = [
+          Eexpr.EQ,
+          Eexpr.NEQ,
+          Eexpr.GT,
+          Eexpr.GTEQ,
+          Eexpr.LT,
+          Eexpr.LTEQ,
+        ];
+        if (code !== 'createdTime' && code !== 'modifiedTime') {
+          exprArray.push(...[Eexpr.EP, Eexpr.NEP]);
+        }
+
+        break;
+      case DataItemType.Time:
+        exprArray = [
+          Eexpr.EQ,
+          Eexpr.NEQ,
+          Eexpr.GT,
+          Eexpr.GTEQ,
+          Eexpr.LT,
+          Eexpr.LTEQ,
+          Eexpr.EP,
+          Eexpr.NEP,
+        ];
+        break;
+      case DataItemType.Logic:
+        exprArray = [Eexpr.EQ];
+        break;
+      case DataItemType.StaffSingle:
+      case DataItemType.StaffMulti:
+      case DataItemType.StaffDeptMix:
+      case DataItemType.DeptMulti:
+      case DataItemType.DeptSingle:
+        if (
+          code !== 'creater' &&
+          code !== 'createdDeptId' &&
+          code !== 'owner' &&
+          code !== 'ownerDeptId'
+        ) {
+          exprArray = [Eexpr.OF, Eexpr.EP, Eexpr.NEP];
+        } else {
+          exprArray = [Eexpr.OF];
+        }
+
+        break;
+      default:
+        break;
+    }
+    return BizRule.getConditionByCode(exprArray);
+  }
+
+  //时间改变
+  timeChange(date: any, i) {
+    this.filtersList[i].value = date.format('HH:mm:ss');
+  }
+
+  @Watch('value', {
+    immediate: true,
+  })
+  valueChange() {
+    if (
+      this.value &&
+      this.value.hasOwnProperty('conditions') &&
+      this.value.conditions.length > 0
+    ) {
+      this.inputValue = '已设置';
+      if (
+        this.value.conditions.some((item) => {
+          return (
+            item.ruleDataConditionType !== 'EP' &&
+            item.ruleDataConditionType !== 'NEP' &&
+            !item.value
+          );
+        })
+      ) {
+        this.inputValue = '未设置';
+      }
+    } else {
+      this.inputValue = '未设置';
+    }
+  }
+}
+</script>
+
+<style lang="less">
+.property-data-filter {
+  .ant-col {
+    padding-right: 8px;
+    & > * {
+      width: 100%;
+    }
+  }
+  .title-tips {
+    font-size: 12px;
+    color: rgba(17, 18, 24, 0.5);
+  }
+  .add {
+    margin-top: 6px;
+    color: @primary-color;
+    cursor: pointer;
+    text-align: center;
+    margin-right: 24px;
+    span {
+      margin-right: 8px;
+    }
+  }
+  .filters {
+    margin-top: 12px;
+    .ant-row {
+      padding: 3px 8px;
+    }
+    .ant-row > div {
+      font-size: 12px;
+      color: #111218;
+      line-height: 20px;
+    }
+    .condition-row:hover {
+      background: #eef4fd;
+    }
+  }
+  .data-filter {
+    width: 110px;
+  }
+  .data-filed {
+    width: 150px;
+  }
+
+  .data-select {
+    width: 100% !important;
+  }
+}
+</style>
+
+<style lang="less" scoped></style>

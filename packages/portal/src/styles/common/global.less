@@ -1,0 +1,82 @@
+/*
+禁止修改!此文件是产品代码的一部分，后续可能变更或者不再开放。
+若有问题，请参考前端相关二开文档。
+*/
+@import "../themes/default.less";
+.ant-calendar-range-middle{
+    padding: 0!important;
+ }
+  /**
+     UI要求的一些全局样式
+   */
+  // .ant-popover-arrow{
+  //   visibility: hidden;
+  // }
+
+.ant-btn-danger{
+  background-color: #F0353F;
+  border-color: #F0353F;
+}
+.ant-btn {
+  min-width: 80px;
+  border-radius: 2px !important;
+  &:not(.ant-btn-primary, .ant-btn-danger, .ant-btn[disabled], .ant-btn-link) {
+    &:hover{
+      border: 1px solid @primary-color;
+      color:  @primary-color;
+    }
+    &:active, &:focus{
+      border: 1px solid @primary-color;
+      color:  @primary-color;
+    }
+  }
+  &.ant-dropdown-trigger:not(.ant-btn-primary){
+    padding: 0 16px;
+    line-height: 32px;
+
+    &:hover{
+      border: 1px solid  @primary-color;
+      color:  @primary-color;
+    }
+    &:active, &:focus{
+      border: 1px solid  @primary-color;
+      color:  @primary-color;
+    }
+
+    .icon{
+      margin-left: 10px;
+    }
+  }
+}
+ 
+  .bpm-container ul,ol,dl{
+    margin-bottom: 0;
+  }
+ 
+  // .content-box .ant-btn.ant-btn-primary{
+  //   background-color: #2970FF;
+  //   &:focus{
+  //     background-color: #2970FF;
+  //     border-color: #2970FF;
+  //   }
+  // }
+  
+  .content-box .ant-btn[disabled]{
+    background: #F1F2F6;
+  }
+  
+  
+  .ant-modal-confirm .ant-modal-confirm-btns .ant-btn{
+    min-width: 80px;
+    padding: 0 16px;
+  }
+
+  .ant-calendar .ant-calendar-ok-btn.ant-calendar-ok-btn-disabled {
+    background-color: #f5f5f5;
+    border-color: #d9d9d9;
+    &:hover,&:active {
+      background-color: #f5f5f5;
+      border-color: #d9d9d9;
+    }
+  }
+ 

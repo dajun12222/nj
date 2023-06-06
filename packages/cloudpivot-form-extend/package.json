@@ -1,0 +1,13 @@
+{
+ "name": "cloudpivot-form-extend",
+ "version": "6.11.4",
+ "description": "云枢6.11表单二开组件",
+ "private": true,
+ "main": "./index.ts",
+ "scripts": {},
+ "license": "MIT",
+ "publishConfig": {},
+ "dependencies": {
+  "cloudpivot": "^6.11.4"
+ }
+}

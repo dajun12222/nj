@@ -1,0 +1,15 @@
+{
+ "name": "cloudpivot",
+ "version": "6.11.1000",
+ "description": "云枢6.0公共依赖库",
+ "private": false,
+ "main": "./index.ts",
+ "scripts": {
+  "build": "rimraf dist/ && tsc"
+ },
+ "license": "MIT",
+ "publishConfig": {
+  "registry": "https://nexus01.authine.cn/repository/npm-cloudpivot/"
+ },
+ "gitHead": "63bf7b187cd5a4a2cd4887243db8bfe39e213c51"
+}

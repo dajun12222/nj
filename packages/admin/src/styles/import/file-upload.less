@@ -1,0 +1,84 @@
+/*
+禁止修改!此文件是产品代码的一部分，后续可能变更或者不再开放。
+若有问题，请参考前端相关二开文档。
+*/
+@import '~@/styles/color/colors.less';
+.modal-body {
+  margin: auto 24px;
+  .steps {
+    width: 50%;
+    margin: 30px auto;
+  }
+}
+.data-upload {
+  & .folders {
+    margin-top: 20px;
+  }
+  & .upload-left {
+    width: 98px;
+    float: left;
+    vertical-align: middle;
+    height: 22px;
+    line-height: 22px;
+    margin-right: 2px;
+  }
+  & .upload-right {
+    width: 490px;
+    float: left;
+    vertical-align: middle;
+    & .ant-upload-list {
+      margin-top: 20px;
+    }
+    & .upload-dragger {
+      display: block;
+      position: relative;
+      & /deep/.ant-upload.ant-upload-drag {
+        &:hover {
+          background: @sub-bg-color;
+          border-color: @primary-color;
+        }
+      }
+      & .ant-upload.ant-upload-drag .ant-upload-drag-container {
+        &:hover {
+          background: unset;
+        }
+        div {
+          &:hover {
+            background: unset;
+          }
+          text-align: center;
+          height: 28px;
+          line-height: 28px;
+          color: rgba(17, 18, 24, 0.5);
+        }
+      }
+      & .ant-upload.ant-upload-drag .ant-upload-btn {
+        padding: 0;
+      }
+      .tip {
+        span {
+          color: @primary-color;
+          padding-left: 10px;
+        }
+      }
+    }
+  }
+  & .upload-tip {
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+    font-size: 12px;
+    color: rgba(17, 18, 24, 0.5);
+  }
+
+  .clearfix {
+    clear: both;
+  }
+
+  /deep/.ant-upload-list-item-info .anticon-paper-clip {
+    top: 3px;
+  }
+  /deep/.ant-upload-list-item {
+    margin-top: 30px;
+  }
+}

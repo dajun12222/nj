@@ -1,0 +1,580 @@
+/*
+禁止修改!此文件是产品代码的一部分，后续可能变更或者不再开放。
+若有问题，请参考前端相关二开文档。
+*/
+.from-attribute-options {
+  min-width: 267px;
+  height: 100%;
+  // border: solid 1px #ececec;
+  .ant-tabs-tab {
+    margin: 0;
+  }
+  > .ant-tabs {
+    > .ant-tabs-bar {
+      margin-bottom: 0 !important;
+    }
+  }
+  .ant-tabs {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: #fff;
+
+    &.noCollapse {
+      .ant-collapse-item:first-child {
+        margin-top: 0px;
+      }
+      .attr-row:not(.checkbox-row):not(.air) {
+        padding-bottom: 16px;
+      }
+      .ant-collapse-header {
+        display: none;
+      }
+    }
+    .ant-tabs-bar {
+      flex: 0 0 40px;
+      margin: 0;
+    }
+    .ant-tabs-bar,
+    .ant-tabs-tabpane {
+      background: #fff;
+      border-radius: 0px;
+    }
+    .ant-tabs-nav-wrap {
+      text-align: center;
+    }
+    .ant-tabs-content {
+      flex: 1;
+      height: 100%;
+      background: #fff;
+      .ant-tabs-tabpane {
+        overflow: auto;
+        max-height: calc(100% - 43px);
+        padding-top: 16px;
+      }
+    }
+    .empty-pane {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(17, 18, 24, 0.25);
+    }
+  }
+  .ant-collapse {
+    border: 0;
+
+    .ant-collapse-item {
+      border-bottom: 0;
+      &:first-child {
+        margin-top: -12px;
+      }
+      .ant-collapse-header {
+        padding-left: 35px;
+        text-align: left;
+        font-weight: bold;
+        color: #111218;
+        background: #fff;
+        line-height: 18px;
+        font-size: 13px;
+        .ant-collapse-arrow {
+          line-height: 12px;
+        }
+        .arrow {
+          left: 8px;
+          color: rgba(17, 18, 24, 0.5) !important;
+          /*width: 10px;*/
+          /*height: 8px;*/
+          /*font-size: 12px;*/
+          font-weight: 400 !important;
+        }
+      }
+    }
+    .ant-collapse-content {
+      border: 0;
+      overflow: inherit;
+    }
+    .ant-collapse-content > .ant-collapse-content-box {
+      padding: 0;
+    }
+  }
+  .attr-rows {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .attr-row {
+    position: relative;
+    padding-bottom: 16px;
+
+    .attr-lab {
+      font-weight: bold;
+      color: #111218;
+      line-height: 20px;
+      font-size: 12px;
+      display: inline-block;
+      position: relative;
+      margin-bottom: 4px;
+      .anticon {
+        color: #ccc;
+        position: absolute;
+        top: 4px;
+        right: -21px;
+      }
+      em {
+        color: #bebec0;
+        font-size: 14px;
+        margin-left: 4px;
+      }
+    }
+    .ant-select {
+      color: #111218 !important;
+      z-index: 10;
+      .ant-select-arrow {
+        font-size: 10px;
+        line-height: 10px;
+        right: 8px;
+        margin-top: -4px;
+        color: rgba(17, 18, 24, 0.5);
+      }
+    }
+    .attr-val {
+      line-height: 30px;
+      height: 30px;
+      color: #111218 !important;
+      border-radius: 2px;
+
+      .attr-val-disabled {
+        border: thin solid #d4d5d6;
+        color: #2970ff !important;
+      }
+
+      .ant-select-disabled .ant-select-selection {
+        background-color: #f1f2f6;
+      }
+
+      .ant-select-selection {
+        border-radius: 2px;
+        border: 1px solid #d4d5d6;
+        .ant-select-selection__placeholder {
+          font-size: 13px;
+        }
+      }
+
+      > *:not(.logic-attr):not(.externalLink),
+      .ant-calendar-picker-input,
+      .ant-select-selection {
+        display: block;
+        width: 100%;
+        border-radius: 2px;
+        line-height: 30px;
+        height: 100%;
+        font-size: 13px;
+        color: #111218 !important;
+
+        &.ant-input-disabled{
+          color: rgba(17,18,24,.5) !important;
+        }
+      }
+
+      .ant-radio-group {
+        white-space: nowrap;
+        .ant-radio-wrapper {
+          margin-right: 24px;
+          font-size: 13px;
+          color: #111218;
+          line-height: 22px;
+        }
+        .ant-radio-button-wrapper {
+          padding: 0 12.2px;
+          height: 30px;
+          line-height: 28px;
+        }
+      }
+
+      .aufontAll {
+        font-size: 14px;
+        color: rgba(17, 18, 24);
+      }
+      &-disabled {
+        padding: 0 8px;
+        display: block;
+        height: 30px;
+        background-color: #f5f5f5;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      &-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .data-title-input {
+        border: thin solid #d4d5d6;
+        border-radius: 2px;
+      }
+
+      .input-modal {
+        display: flex !important;
+        padding: 0 8px;
+        cursor: pointer;
+        align-items: center;
+        position: relative;
+        // border: thin solid #d4d5d6;
+        background: #f1f2f6;
+        .txt {
+          flex: 1 1;
+          display: inline-block;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+        .klass {
+          color: #25b864;
+        }
+        .h-icon-all-delete1 {
+          position: absolute;
+          right: -26px;
+          color: rgba(17, 18, 24, 0.5);
+          font-size: 16px;
+        }
+        .h-icon-all-setting-o {
+          position: absolute;
+          top: -30px;
+          right: -24px;
+          color: #111218;
+          transform: rotate(30deg);
+        }
+        .sync-switch {
+          position: absolute;
+          height: 8px;
+          width: 8px;
+          border-radius: 50%;
+          top: 50%;
+          right: 35px;
+          transform: translate(0, -50%);
+          background: #25b864;
+        }
+      }
+      .input-box {
+        display: block;
+        padding: 0 8px 0 8px;
+        background: none;
+        height: 30px;
+      }
+      .textarea-box {
+        line-height: 22px;
+        padding-top: 5px;
+        box-sizing: border-box;
+      }
+
+      .ant-select-selection__rendered {
+        margin-left: 8px;
+        margin-right: 25px;
+      }
+
+      .integer-block {
+        input {
+          color: #111218;
+        }
+        div {
+          width: 24px;
+          height: 15px;
+          position: absolute;
+          right: 1px;
+          line-height: 10px;
+          text-align: center;
+          border: thin solid #d4d5d6;
+          border-right: 0;
+          cursor: pointer;
+          &.up {
+            top: 26px;
+            border-top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+          }
+          &.down {
+            top: 40px;
+            border-bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+          }
+          i {
+            font-size: 20px;
+            width: 100%;
+            transform: scale(0.5);
+            line-height: 20px;
+          }
+          .ant-input {
+            padding: 0 32px 0 8px;
+          }
+        }
+      }
+    }
+  }
+
+  /**非常规属性 */
+
+  .attr-row {
+    &.no-show {
+      display: none;
+    }
+
+    &.logic-row {
+      .attr-lab {
+        margin-bottom: 0px;
+      }
+      .attr-val {
+        line-height: unset;
+        height: unset;
+        .logic-attr {
+          height: 18px;
+          width: 36px;
+          min-width: 36px;
+          position: absolute;
+          right: 0px;
+          top: 1px;
+          &::after {
+            top: 1px;
+            width: 14px;
+            height: 14px;
+            border-radius: 14px;
+          }
+        }
+        .externalLinkUnable {
+          display: none;
+        }
+
+        .externalLinkAble {
+          font-size: 12px;
+          color: rgba(17, 18, 24, 0.5);
+          line-height: 20px;
+          .tips {
+            word-break: break-all;
+            .link {
+              color: #2970ff;
+              line-height: 22px;
+              font-size: 13px;
+              display: flex;
+              align-items: center;
+              margin-top: 4px;
+              margin-bottom: 12px;
+              span {
+                &:first-child {
+                  margin-right: 4px;
+                }
+                &:last-child {
+                  margin-left: 4px;
+                  font-size: 16px;
+                  &:hover {
+                    color: #2970ff;
+                  }
+                }
+              }
+            }
+          }
+          .Qrcode {
+            .small-qrcode {
+              display: block;
+              margin-top: 4px;
+              width: 80px;
+              height: 80px;
+              border: thin solid #eeeeee;
+            }
+            .big-qrcode {
+              &.not-show {
+                display: none;
+              }
+              border: thin solid #eeeeee;
+              position: absolute;
+              z-index: 100;
+            }
+          }
+        }
+      }
+    }
+
+    &.air {
+      padding-bottom: 0 !important;
+    }
+
+    &.checkbox-row {
+      height: 0px;
+      padding-bottom: 0;
+      &.sync {
+        .attr-val {
+          right: 85px;
+        }
+      }
+      .attr-lab {
+        position: absolute;
+        right: 0px;
+        top: -70px;
+        font-weight: 400;
+        color: #111218;
+        font-size: 13px;
+        line-height: 22px;
+      }
+      .attr-val {
+        position: absolute;
+        right: 60px;
+        top: -73px;
+      }
+    }
+
+    &.modal-row {
+      &:not(.special-modal) {
+        .attr-val {
+          margin-right: 24px;
+          .input-modal {
+            border: 0;
+          }
+        }
+        .h-icon-all-ellipsis-o {
+          display: none;
+        }
+      }
+      &.special-modal {
+        .h-icon-all-delete1 {
+          display: none;
+        }
+        .h-icon-all-setting-o {
+          display: none;
+        }
+        .input-modal {
+          background: #fff;
+          border: 1px dashed #d4d5d6;
+          .textNew {
+            text-align: center;
+          }
+        }
+        .tabs-heads-setting {
+          .h-icon-all-setting-o {
+            display: inline;
+          }
+        }
+      }
+      .aufontAll:hover  {
+        color: #2970ff;
+      }
+    }
+
+    &.no-title {
+      margin-top: -8px;
+      .attr-lab {
+        display: none;
+      }
+      .h-icon-all-setting-o {
+        display: none;
+      }
+    }
+
+    &.second-title {
+      margin-top: -8px;
+      .attr-lab {
+        font-weight: 400;
+        color: #88888b;
+        line-height: 20px;
+        .ant-radio-group {
+          line-height: 20px;
+        }
+      }
+    }
+
+    &.no-body {
+      .attr-lab {
+        margin-bottom: 0px;
+      }
+      .attr-val {
+        height: 0px !important;
+        .input-modal {
+          height: 0px !important;
+          border: 0 !important;
+          .txt {
+            display: none;
+          }
+          .h-icon-all-delete1 {
+            display: none;
+          }
+          .h-icon-all-setting-o {
+            top: -26px;
+          }
+        }
+      }
+    }
+
+    &.small-radio-group {
+      .ant-radio-group {
+        .ant-radio-wrapper {
+          margin-right: 12px !important;
+        }
+      }
+    }
+
+    &.no-height-limit {
+      .attr-val {
+        height: unset;
+      }
+    }
+
+    &.upload-row {
+      .attr-val {
+        .ant-upload-drag {
+          .ant-upload-btn {
+            width: 100%;
+            padding: 0;
+            line-height: 37px;
+          }
+          .center-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .h-icon-all-cloud-upload1 {
+            font-size: 24px;
+            color: #ddd;
+            padding-right: 8px;
+          }
+        }
+        .ant-upload-list {
+          .ant-upload-list-item:hover {
+            .ant-upload-list-item-name {
+              color: #2970ff;
+            }
+            .ant-upload-list-item-info {
+              background-color: #fff;
+            }
+          }
+          .anticon-paper-clip {
+            font-size: 16px;
+            top: 2px;
+          }
+        }
+      }
+    }
+
+    &.disabled {
+      .attr-val .input-box {
+        background: #f1f2f6;
+        color: #111218;
+      }
+    }
+
+    // &:last-child {
+    //   padding-bottom: 9px;
+    // }
+  }
+}
+// 表单设计页面会挡住第一行
+// 如果有问题，需要覆盖改样式，请检查受是否显示选择关联表单->表单控件属性->选择业务的第一项
+// .ant-select-tree-dropdown.fixed .ant-select-dropdown-search {
+//   position: inherit;
+// }

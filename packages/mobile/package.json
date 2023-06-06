@@ -1,0 +1,51 @@
+{
+  "name": "cloudpivot-mobile",
+  "version": "6.11.4",
+  "private": true,
+  "description": "云枢mobile端项目",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "npm run build-prod",
+    "test": "vue-cli-service test:unit",
+    "lint": "vue-cli-service lint",
+    "analyze": "vue-cli-service build --report",
+    "build-dev": "vue-cli-service build --mode development",
+    "build-prod": "rimraf node_modules/.cache && vue-cli-service build --max_old_space_size=4096",
+    "dev": "rimraf node_modules/.cache && vue-cli-service serve --mode debug",
+    "dll": "webpack -p --progress --config ./webpack.dll.conf.js"
+  },
+  "dependencies": {
+    "cloudpivot": "6.11.1000",
+    "cloudpivot-form-extend": "^6.11.4",
+    "cloudpivot-forms": "^6.11.1",
+    "cloudpivot-icons": "^6.11.0",
+    "fastclick": "1.0.6"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.18.0",
+    "@typescript-eslint/parser": "^4.18.0",
+    "@vue/cli-plugin-babel": "~4.5.15",
+    "@vue/cli-plugin-eslint": "~4.5.15",
+    "@vue/cli-plugin-router": "~4.5.15",
+    "@vue/cli-plugin-typescript": "~4.5.15",
+    "@vue/cli-plugin-vuex": "~4.5.15",
+    "@vue/cli-service": "~4.5.15",
+    "@vue/eslint-config-airbnb": "3.0.3",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^10.0.33",
+    "babel-plugin-import": "^1.13.3",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-html": "^4.0.6",
+    "eslint-plugin-typescript": "^0.13.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "less": "^3.0.4",
+    "less-loader": "^5.0.0",
+    "typescript": "~4.1.5",
+    "vconsole": "^3.3.0",
+    "vue-template-compiler": "2.6.14"
+  }
+}
